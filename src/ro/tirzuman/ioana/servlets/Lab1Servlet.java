@@ -2,7 +2,6 @@ package ro.tirzuman.ioana.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -38,7 +37,7 @@ public class Lab1Servlet extends HttpServlet {
 		
 		logRequestDetails(request);
 		
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text;charset=UTF-8");
 		//response.getWriter().println(dataStore.getData());
 		
 		Map<String, String> data = dataStore.getData(); 

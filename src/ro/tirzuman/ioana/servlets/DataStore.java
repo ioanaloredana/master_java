@@ -6,12 +6,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 public class DataStore {
 
-	static private HashMap<String, String> memoryMap = new HashMap<String, String>();
+	static private Map<String, String> memoryMap = new TreeMap<String, String>();
 
 	public DataStore() {
 		Properties propLoad = new Properties();
@@ -65,8 +66,8 @@ public class DataStore {
 
 	}
 
-	public synchronized HashMap getData() {
-		return memoryMap;
+	public synchronized Map<String, String> getData() {
+		return new TreeMap<>(memoryMap);
 	}
 
 }
