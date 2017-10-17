@@ -1,0 +1,7 @@
+animale,k1,n1
+copii,k2,n2
+plante,k3,n3
+plante,k4,n4
+plante,caine,bobica
+animale,k5,sant
+animale,k5,santulet

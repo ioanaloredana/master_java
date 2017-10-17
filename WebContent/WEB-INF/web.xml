@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>java-l1</display-name>
+	
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
+	
 	<servlet>
-		<description>
-		</description>
-		<display-name>Lab1Servlet</display-name>
-		<servlet-name>Lab1Servlet</servlet-name>
-		<servlet-class>ro.tirzuman.ioana.servlets.Lab1Servlet</servlet-class>
+		<servlet-name>RecordController</servlet-name>
+		<servlet-class>ro.tirzuman.ioana.controller.RecordController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Lab1Servlet</servlet-name>
-		<url-pattern>/pair</url-pattern>
+		<servlet-name>RecordController</servlet-name>
+		<url-pattern>/records</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddRecordController</servlet-name>
+		<servlet-class>ro.tirzuman.ioana.controller.AddRecordController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddRecordController</servlet-name>
+		<url-pattern>/addRecordForm</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CaptchaController</servlet-name>
+		<servlet-class>ro.tirzuman.ioana.controller.CaptchaController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CaptchaController</servlet-name>
+		<url-pattern>/captcha</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -20,4 +43,9 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/view/error.jsp</location>
+	</error-page>
 </web-app>
