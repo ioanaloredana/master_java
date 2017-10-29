@@ -1,10 +1,6 @@
 package ro.tirzuman.ioana.controller;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CaptchaController extends HttpServlet {
 
 	private static final long serialVersionUID = 7524137982779010513L;
-	private static final String LOG_DELIMITER = " | ";
 
 	private static String charPool = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
 	private static int charPoolLength = charPool.length();
@@ -31,7 +26,6 @@ public class CaptchaController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logRequestDetails(request);
 		try {
 			addCaptcha(request, response);
 		} catch (Exception e) {
@@ -88,13 +82,4 @@ public class CaptchaController extends HttpServlet {
 
 		doGet(request, response);
 	}
-
-	private void logRequestDetails(HttpServletRequest req) {
-
-		String temp = req.getMethod() + LOG_DELIMITER + req.getRemoteAddr() + LOG_DELIMITER + req.getRemotePort()
-				+ LOG_DELIMITER + req.getHeader("User-Agent") + LOG_DELIMITER + req.getHeader("Accept-Language ")
-				+ LOG_DELIMITER + req.getParameterMap();
-		getServletContext().log(temp);
-	}
-
 }

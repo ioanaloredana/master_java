@@ -27,7 +27,6 @@ public class RecordController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 6471791868015497423L;
 	private RecordRepository dataStore = new RecordRepository();
-	private static final String LOG_DELIMITER = " | ";
 	private static final String SESSION_OBJ_RECORDS = "sessionRecords";
 	private static final String COOKIE_CATEGORY = "java-lab2.category";
 
@@ -37,10 +36,6 @@ public class RecordController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		logRequestDetails(request);
-
 		response.setContentType("text;charset=UTF-8");
 
 		List<Record> data = dataStore.getData();
@@ -56,9 +51,6 @@ public class RecordController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		logRequestDetails(request);
-		
 		HttpSession session = request.getSession();
 		if (session == null) {
 			throw new InvalidParameterException("No session exists.");
@@ -68,14 +60,14 @@ public class RecordController extends HttpServlet {
 		if (captchaRequest == null || !captchaRequest.equals(captchaSession)) {
 			throw new InvalidParameterException("Captcha validation failed");
 		}
-		
+
 		String category = request.getParameter("category");
 		String key = request.getParameter("key");
 		String name = request.getParameter("name");
 		validateInput(category);
 		validateInput(key);
 		validateInput(name);
-		
+
 		dataStore.put(category, key, name);
 
 		List<Record> sessionRecords = null;
@@ -116,14 +108,4 @@ public class RecordController extends HttpServlet {
 		cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // in seconds, 10 years
 		response.addCookie(cookie);
 	}
-
-	private void logRequestDetails(HttpServletRequest req) {
-
-		String temp = req.getMethod() + LOG_DELIMITER + req.getRemoteAddr() + LOG_DELIMITER + req.getRemotePort()
-				+ LOG_DELIMITER + req.getHeader("User-Agent") + LOG_DELIMITER + req.getHeader("Accept-Language ")
-				+ LOG_DELIMITER + req.getParameterMap();
-		getServletContext().log(temp);
-		// System.out.println(temp);
-	}
-
 }

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.4"
-	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+
 	<display-name>java-l1</display-name>
-	
+
 	<session-config>
 		<session-timeout>5</session-timeout>
 	</session-config>
-	
+
 	<servlet>
 		<servlet-name>RecordController</servlet-name>
 		<servlet-class>ro.tirzuman.ioana.controller.RecordController</servlet-class>
@@ -34,6 +37,25 @@
 		<servlet-name>CaptchaController</servlet-name>
 		<url-pattern>/captcha</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>ro.tirzuman.ioana.controller.LoginController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>LoggingFilter</filter-name>
+		<filter-class>ro.tirzuman.ioana.filter.LoggingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoggingFilter</filter-name>
+		<url-pattern>/records</url-pattern>
+		<url-pattern>/addRecordForm</url-pattern>
+	</filter-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

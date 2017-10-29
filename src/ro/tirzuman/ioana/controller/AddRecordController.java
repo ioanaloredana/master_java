@@ -13,7 +13,6 @@ import ro.tirzuman.ioana.dao.CategoryRepository;
 public class AddRecordController extends HttpServlet {
 
 	private static final long serialVersionUID = 7524137982779010513L;
-	private static final String LOG_DELIMITER = " | ";
 	private static final String COOKIE_CATEGORY = "java-lab2.category";
 
 	/**
@@ -22,7 +21,6 @@ public class AddRecordController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logRequestDetails(request);
 		request.setAttribute("categories", CategoryRepository.getAll());
 		checkCookies(request);
 		getServletContext().getRequestDispatcher("/view/input.jsp").forward(request, response);
@@ -51,14 +49,4 @@ public class AddRecordController extends HttpServlet {
 
 		doGet(request, response);
 	}
-
-	private void logRequestDetails(HttpServletRequest req) {
-
-		String temp = req.getMethod() + LOG_DELIMITER + req.getRemoteAddr() + LOG_DELIMITER + req.getRemotePort()
-				+ LOG_DELIMITER + req.getHeader("User-Agent") + LOG_DELIMITER + req.getHeader("Accept-Language ")
-				+ LOG_DELIMITER + req.getParameterMap();
-		getServletContext().log(temp);
-		// System.out.println(temp);
-	}
-
 }

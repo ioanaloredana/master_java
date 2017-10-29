@@ -2,18 +2,15 @@ package ro.tirzuman.ioana.model;
 
 import java.io.Serializable;
 
-import ro.tirzuman.ioana.dao.CategoryRepository;
-
 public class Record implements Serializable{
-
-	private static final long serialVersionUID = -4314640355951716540L;
+	private static final long serialVersionUID = -5231958980939938680L;
 
 	private String key;
 	private String name;
 	private Category category;
 	
 	public Record(String category, String key, String name) {
-		this.category = CategoryRepository.getCategory(category);
+		this.category = new Category(category);
 		this.key = key;
 		this.name = name;
 	}
@@ -41,7 +38,7 @@ public class Record implements Serializable{
 	public String getAsLine() {
 		return category.getName() + "," + key + "," + name;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
