@@ -1,6 +1,8 @@
 package ro.tirzuman.ioana.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -23,9 +25,19 @@ public class CopyrightFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		chain.doFilter(req, res);
-		HttpServletResponse response = (HttpServletResponse) res;
-		response.getWriter().println(COPYRIGHT_TEXT);
+		CharResponseWrapper wrapper = new CharResponseWrapper((HttpServletResponse) res);
+		// Send the decorated object as a replacement for the original response
+		chain.doFilter(req, wrapper);
+
+		// Get the dynamically generated content from the decorator
+		String content = wrapper.toString();
+		// Modify the content
+		StringWriter sw = new StringWriter();
+		sw.write(content);
+		sw.write("<br>" + COPYRIGHT_TEXT + "<br>");
+		// Send the modified content using the original response
+		PrintWriter out = res.getWriter();
+		out.write(sw.toString());
 	}
 
 	@Override

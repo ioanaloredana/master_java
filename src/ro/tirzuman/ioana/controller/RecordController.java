@@ -26,7 +26,7 @@ public class RecordController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 6471791868015497423L;
-	private RecordRepository dataStore = new RecordRepository();
+	private RecordRepository dataStore = RecordRepository.getInstance();
 	private static final String SESSION_OBJ_RECORDS = "sessionRecords";
 	private static final String COOKIE_CATEGORY = "java-lab2.category";
 
@@ -36,13 +36,14 @@ public class RecordController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text;charset=UTF-8");
-
+		/*response.setContentType("text;charset=UTF-8");
 		List<Record> data = dataStore.getData();
 		for (Record entry : data) {
 			PrintWriter writer = response.getWriter();
 			writer.println(entry.getAsLine());
-		}
+		}*/
+		request.setAttribute("records", dataStore.getData());
+		getServletContext().getRequestDispatcher("/view/result_tag.jsp").forward(request, response);
 	}
 
 	/**

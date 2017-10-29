@@ -16,6 +16,7 @@ public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 7524137982779010514L;
 	private static final String SESSION_LOGIN = "loggedIn";
+	private static final String SESSION_LOCALE = "locale";
 	private static final String COOKIE_LOGIN = "java-lab2.login";
 
 	/**
@@ -25,7 +26,7 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		checkCookies(request);
-		getServletContext().getRequestDispatcher("/view/input.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/view/login.jsp").forward(request, response);
 	}
 
 	/**
@@ -34,17 +35,21 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = (String) request.getAttribute("username");
-		String password = (String) request.getAttribute("password");
+		String username = (String) request.getParameter("username");
+		String password = (String) request.getParameter("password");
 		if (!isValidCredentials(username, password)) {
 			String errorMessage = "The provided credentials are invalid";
 			request.setAttribute("errorMessage", errorMessage);
 			getServletContext().getRequestDispatcher("/view/login.jsp").forward(request, response);
+			return;
+		} else {
+			String locale = (String) request.getParameter("locale");
+			HttpSession session = request.getSession(true);
+			session.setAttribute(SESSION_LOGIN, Boolean.TRUE);
+			session.setAttribute(SESSION_LOCALE, locale);
+			addCookie(response, username);
+			getServletContext().getRequestDispatcher("/view/main.jsp").forward(request, response);
 		}
-		HttpSession session = request.getSession(true);
-		session.setAttribute(SESSION_LOGIN, Boolean.TRUE);
-		addCookie(response, username);
-
 	}
 
 	private void addCookie(HttpServletResponse response, String username) {

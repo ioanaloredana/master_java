@@ -29,7 +29,7 @@ public class CredentialsFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 
 		HttpSession session = request.getSession();
-		if (session != null) {
+		if (session != null && session.getAttribute(SESSION_LOGIN) != null) {
 			boolean isUserLoggedIn = (boolean) session.getAttribute(SESSION_LOGIN);
 			if (!isUserLoggedIn) {
 				redirectToLogin(request, response);
@@ -45,7 +45,7 @@ public class CredentialsFilter implements Filter {
 		try {
 			String errorMessage = "Please login before accessing protected resources";
 			request.setAttribute("errorMessage", errorMessage);
-			request.getServletContext().getRequestDispatcher("/view/input.jsp").forward(request, response);
+			request.getServletContext().getRequestDispatcher("/view/login.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

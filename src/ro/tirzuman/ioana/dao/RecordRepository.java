@@ -9,18 +9,26 @@ import ro.tirzuman.ioana.util.Util;
 
 public class RecordRepository {
 
+	private static RecordRepository instance;
 	private static String FILE = "records.txt";
 	private static List<Record> memoryList = new ArrayList<Record>();
-	
-	public RecordRepository() {
+
+	private RecordRepository() {
 		loadDataFromDisk();
 	}
-	
+
+	public static RecordRepository getInstance() {
+		if (instance == null) {
+			instance = new RecordRepository();
+		}
+		return instance;
+	}
+
 	private void loadDataFromDisk() {
 		List<String> fileLines = Util.getFileContent(FILE);
 		for (String line : fileLines) {
 			String[] data = line.split(",");
-			if(data == null || data.length != 3) {
+			if (data == null || data.length != 3) {
 				Util.log("Record read from file is invalid: " + line);
 				continue;
 			}
@@ -44,4 +52,22 @@ public class RecordRepository {
 		return new ArrayList<Record>(memoryList);
 	}
 
+	public Record getRecord(String key) {
+		return getRecord(key, null);
+	}
+
+	public Record getRecord(String key, String category) {
+		for (Record record : memoryList) {
+			if (record.getKey().equals(key)) {
+				if (category != null) {
+					if (record.getCategory().getName().equals(category)) {
+						return record;
+					}
+				} else {
+					return record;
+				}
+			}
+		}
+		return null;
+	}
 }

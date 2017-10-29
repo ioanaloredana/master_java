@@ -7,3 +7,6 @@ animale,k5,sant
 animale,k5,santulet
 animale,k8,dogss
 animale,k9,fdsi
+animale,kk,nn
+animale,asdasd,asdad
+animale,asdada,fdsfsd

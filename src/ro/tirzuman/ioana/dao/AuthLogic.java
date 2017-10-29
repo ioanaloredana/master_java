@@ -1,5 +1,6 @@
 package ro.tirzuman.ioana.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +11,9 @@ public class AuthLogic {
 	private static String DEFAULT_USER = "admin";
 	private static String DEFAULT_PASS = "admin";
 
-	private static Map<String, String> credentials;
+	private static Map<String, String> credentials = new HashMap<String, String>();
 
-	{
+	static {
 		List<String> credentialsList = Util.getFileContent("credentials.txt");
 		if (credentialsList != null && !credentialsList.isEmpty()) {
 			for (String credential : credentialsList) {

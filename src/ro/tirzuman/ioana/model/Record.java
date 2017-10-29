@@ -1,6 +1,9 @@
 package ro.tirzuman.ioana.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class Record implements Serializable{
 	private static final long serialVersionUID = -5231958980939938680L;
@@ -8,6 +11,7 @@ public class Record implements Serializable{
 	private String key;
 	private String name;
 	private Category category;
+	private Date date;
 	
 	public Record(String category, String key, String name) {
 		this.category = new Category(category);
@@ -33,6 +37,17 @@ public class Record implements Serializable{
 	
 	public void setCategory(Category category){
 		this.category = category;
+	}
+	
+	public Date getDate() {
+//		return date;
+		Calendar cal = Calendar.getInstance();
+		Random rnd = new Random();
+		cal.set(2017, 9, rnd.nextInt(31));
+		return cal.getTime();
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	public String getAsLine() {
@@ -65,6 +80,5 @@ public class Record implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
 }

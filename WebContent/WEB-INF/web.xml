@@ -53,6 +53,24 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoggingFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CopyrightFilter</filter-name>
+		<filter-class>ro.tirzuman.ioana.filter.CopyrightFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CopyrightFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CredentialsFilter</filter-name>
+		<filter-class>ro.tirzuman.ioana.filter.CredentialsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CredentialsFilter</filter-name>
 		<url-pattern>/records</url-pattern>
 		<url-pattern>/addRecordForm</url-pattern>
 	</filter-mapping>

@@ -16,7 +16,8 @@ public class CaptchaController extends HttpServlet {
 
 	private static final long serialVersionUID = 7524137982779010513L;
 
-	private static String charPool = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+	//private static String charPool = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+	private static String charPool = "ab";
 	private static int charPoolLength = charPool.length();
 	private static Random rnd = new Random();
 
